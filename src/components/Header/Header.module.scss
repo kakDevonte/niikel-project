@@ -1,0 +1,53 @@
+.header {
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+
+  &Image {
+    display: flex;
+    flex-basis: 5%;
+    img {
+      margin-left: 15px;
+    }
+  }
+
+  &Info {
+    display: flex;
+    flex-basis: 15%;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+  }
+
+  &Menu{
+    flex-basis: 85%;
+    ul {
+      padding: 10px 20px;
+      list-style: none;
+      display: flex;
+
+      li {
+        font-size: 18px;
+        padding: 10px;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: background-color 0.1s ease-in-out;
+
+      &:hover {
+        color: #f8b002;
+        border-bottom: 3px solid #f8b002;
+      }
+
+      &:active {
+        color: #f8b002;
+        border-bottom: 3px solid #f8b002;
+      }
+
+      &.active {
+        color: #f8b002;
+        border-bottom: 1px solid #f8b002;
+      }
+    }
+  }
+    }
+}
