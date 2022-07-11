@@ -6,3 +6,18 @@
   font-family: 'Open Sans', Roboto, system-ui, Tahoma, sans-serif;
   box-sizing: border-box;
 }
+
+.wrapper {
+  width: calc(100vw - 100px);
+  height: 100%;
+  background-color: #fff;
+  margin: 0 auto;
+  border-radius: 10px;
+  max-width: 1400px;
+}
+
+d-none {
+  @media print {
+    display: none;
+  }
+}
