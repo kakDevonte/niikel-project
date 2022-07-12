@@ -1,0 +1,152 @@
+.root {
+  //border: 2px solid #f8b002;
+  //border-radius: 10px;
+  margin: 10px 0;
+  border: 2px solid rgba(26, 26, 26, 0.1);
+
+  input {
+    font-size: 16px;
+    border: 2px solid rgba(26, 26, 26, 0.1);
+    border-radius: 5px;
+
+    &:hover {
+      border-color: rgba(26, 26, 26, 0.5);
+    }
+  }
+
+  select {
+    font-size: 16px;
+    border: 2px solid rgba(26, 26, 26, 0.1);
+    border-radius: 5px;
+
+    &:hover {
+      border-color: rgba(26, 26, 26, 0.5);
+    }
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+}
+.date {
+  margin-left: 10px;
+  flex-basis: 20%;
+  //border: dashed blue;
+  padding: 5px;
+}
+
+.depart {
+  flex-basis: 50%;
+  //border: dashed blue;
+  select{
+    font-size: 18px;
+  }
+}
+
+.search {
+  flex-basis: 30%;
+
+  input {
+    font-size: 16px;
+  }
+}
+
+input[type=date] {
+  height: 35px;
+  margin: 0 auto;
+  font-size: 16px;
+  text-transform: uppercase;
+  border: 2px solid #f8b002;
+  border-radius: 3px;
+  padding: 0 3px;
+
+  &::-webkit-datetime-edit-month-field {
+    color: #000000;
+  }
+  &::-webkit-datetime-edit-day-field {
+    color: #000000;
+  }
+  &::-webkit-datetime-edit-year-field {
+    color: #000000;
+  }
+
+  &::-webkit-calendar-picker-indicator {
+    &:hover {
+      background-color: lighten(#f8b002,40%);
+      color: darken(#fff, 10%);
+      cursor: pointer;
+    }
+    &:active {
+      border-bottom: 1px solid #f8b002;
+    }
+  }
+}
+
+.form {
+  border-top: 1px solid rgba(26, 26, 26, 0.1);
+  //background-color: rgba(26, 26, 26, 0.1);
+  display: grid;
+  grid-template-columns: repeat(3, 2fr);
+
+  button {
+    width: 30%;
+  }
+}
+
+.gridItem {
+  border: dashed #9a8414;
+  display: flex;
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+  align-self: center;
+
+  label {
+    flex-basis: 30%;
+    margin-right: 5px;
+  }
+
+  input[type=date] {
+    flex-basis: 40%;
+  }
+
+  button {
+    flex-basis: 30%;
+  }
+  input {
+    flex-basis: 70%;
+    width: 100%;
+  }
+  select {
+    flex-basis: 70%;
+    width: 100%;
+  }
+}
+
+.item {
+  display: flex;
+  margin: 10px;
+  align-items: center;
+  border: dashed blue;
+}
+
+.button {
+  padding: 5px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: transparent;
+
+  &Left {
+    &:active {
+      transform: translateX(-2px);
+    }
+  }
+  &Right {
+    &:active {
+      transform: translateX(2px);
+    }
+  }
+}

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Header } from './components/Header';
 import './scss/app.scss';
-import { PatientTable } from './components/PatientTable';
+import { HospitalPlan } from './pages/HospitalPlan';
 
 function App() {
   return (
     <div>
       <Header />
       <div className="wrapper">
-        <PatientTable />
+        <HospitalPlan />
       </div>
     </div>
   );

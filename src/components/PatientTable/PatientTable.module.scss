@@ -1,0 +1,78 @@
+.root {
+  height: 100%;
+  display: flex;
+
+  table {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+
+    tbody tr:hover {
+      background-color: rgba(248, 176, 2, 0.05);
+      cursor: pointer;
+    }
+
+    th {
+      font-weight: bold;
+      padding: 5px;
+      background: #ffffff;
+      border: 1px solid #dddddd;
+    }
+
+    td {
+      border: 1px solid #dddddd;
+      padding: 5px;
+    }
+  }
+}
+
+.active {
+  background-color: rgba(248, 176, 2, 0.05);
+  border: 2px solid #f8b002;
+}
+
+.buttons {
+  display: flex;
+
+}
+
+.button {
+  display: inline-block;
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  background-color: transparent;
+
+  &Edit {
+    border: 2px solid #f8b002;
+    &:hover {
+      background-color: #f8b002;
+    }
+
+    &:active {
+      background-color: darken(#f8b002, 20%);
+      border: 2px solid darken(#f8b002, 20%);
+      transform: translateY(1px);
+    }
+  }
+  &Delete {
+    border: 2px solid red;
+    &:hover {
+      background-color: red;
+    }
+
+    &:active {
+      background-color: darken(red, 20%);
+      border: 2px solid darken(red, 20%);
+      transform: translateY(1px);
+    }
+  }
+
+}
