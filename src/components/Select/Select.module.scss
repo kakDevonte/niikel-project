@@ -1,0 +1,25 @@
+.root {
+  border: 2px solid rgba(26, 26, 26, 0.1);
+  border-radius: 5px;
+  padding: 5px;
+
+  &:hover {
+    border-color: #bdbdbd;
+  }
+
+  &:focus {
+    border-color: rgba(26, 26, 26, 0.5);
+    color: #212529;
+    background-color: #fff;
+    border-color: #bdbdbd;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(189, 189, 189, 0.19);
+  }
+}
+
+.errorMessage {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: .875rem;
+  color: #dc3545;
+}

@@ -2,10 +2,8 @@ import React from 'react';
 import styles from './Button.module.scss';
 
 type ButtonProps = {
-  title: string;
-  type: string;
-  onClick?: () => void;
-};
+  variant: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 type ButtonType = {
   [key: string]: string;
@@ -16,14 +14,14 @@ const ButtonStyles: ButtonType = {
   primary: styles.buttonPrimary,
 };
 
-export const Button: React.FC<ButtonProps> = ({ title, type, onClick }) => {
+export const Button: React.FC<ButtonProps> = (props) => {
   return (
     <>
       <button
-        className={`${styles.button} ${ButtonStyles[type]}`}
-        onClick={onClick}
+        className={`${styles.button} ${ButtonStyles[props.variant]}`}
+        {...props}
       >
-        {title}
+        {props.children}
       </button>
     </>
   );

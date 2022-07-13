@@ -1,32 +1,69 @@
 import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+
 import styles from './PatientPanel.module.scss';
 import { Button } from '../Button';
 import arrowLeft from '../../assets/img/arrow-bar-left.svg';
 import arrowRight from '../../assets/img/arrow-bar-right.svg';
+import { Input } from '../Input';
+import { Select } from '../Select';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+type PatientType = {
+  name: string;
+  contingent: string;
+  department: string;
+  profile: string;
+  comment: string;
+  date: string;
+};
+
+const schema = yup.object().shape({
+  name: yup.string().required('Требуется ввести ФИО пациента'),
+  contingent: yup.string().required('Требуется выбрать контингент'),
+  profile: yup.string().required('Требуется ввести профиль'),
+  department: yup.string().required('Требуется выбрать отделение'),
+  date: yup.string().required('Требуется выбрать дату'),
+});
 
 export const PatientPanel: React.FC = () => {
   const [isVisible, setIsVisible] = React.useState<boolean>(true);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<PatientType>({ mode: 'onBlur', resolver: yupResolver(schema) });
 
   const handleVisible = () => {
     setIsVisible(!isVisible);
   };
 
+  const onSubmit: SubmitHandler<PatientType> = (data) => {
+    console.log(data);
+  };
   return (
     <div className={styles.root}>
       <div className={styles.content}>
         <div className={styles.date}>
           <span>Дата: </span>
-          <button className={`${styles.button} ${styles.buttonLeft}`}>
-            <img src={arrowLeft} />
-          </button>
-          <input type="date" />
-          <button className={`${styles.button} ${styles.buttonRight}`}>
-            <img src={arrowRight} />
-          </button>
+          <div className={styles.dateGroup}>
+            <button className={`${styles.buttonIcon} ${styles.buttonIconLeft}`}>
+              <img src={arrowLeft} alt="arrow left" />
+            </button>
+            <input type="date" />
+            <input type="date" />
+            <button
+              className={`${styles.buttonIcon} ${styles.buttonIconRight}`}
+            >
+              <img src={arrowRight} alt="arrow right" />
+            </button>
+          </div>
         </div>
         <div className={styles.depart}>
           <span>Отделение: </span>
-          <select name="department">
+          <Select name="department">
             <option defaultValue=""></option>
             <option value="Гинекологическое отделение">
               Гинекологическое отделение
@@ -40,48 +77,86 @@ export const PatientPanel: React.FC = () => {
             <option value="Эндокринологическое отделение">
               Эндокринологическое отделение
             </option>
-          </select>
+          </Select>
         </div>
         <div className={styles.search}>
-          <input placeholder="Введите ФИО пациента" />
-          <Button title={'Найти пациента'} type={'primary'} />
+          <Button variant={'primary'}>Поиск</Button>
         </div>
+        {/*<div className={styles.search}>*/}
+        {/*  <input*/}
+        {/*    className={styles.textField}*/}
+        {/*    placeholder="Введите ФИО пациента"*/}
+        {/*  />*/}
+        {/*  <Button title={'Найти пациента'} type={'primary'} />*/}
+        {/*</div>*/}
       </div>
       <div>
-        <Button
-          title={'Добавление пациента'}
-          type={'primary'}
-          onClick={handleVisible}
-        />
+        <Button variant={'primary'} onClick={handleVisible}>
+          Добавление пациента
+        </Button>
       </div>
       {isVisible && (
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.gridItem}>
             <label>ФИО пациента</label>
-            <input type="text" />
+            <Input
+              {...register('name')}
+              error={Boolean(errors.name)}
+              text={errors?.name?.message}
+            />
           </div>
           <div className={styles.gridItem}>
             <label>Контингент</label>
-            <select name="department"></select>
+            <Select
+              {...register('contingent')}
+              error={Boolean(errors.contingent)}
+              text={errors?.contingent?.message}
+            >
+              <option defaultValue=""></option>
+              <option value="Гинекологическое отделение">
+                Гинекологическое отделение
+              </option>
+            </Select>
           </div>
           <div className={styles.gridItem}>
             <label>Профиль</label>
-            <input type="text" />
+            <Input
+              {...register('profile')}
+              error={Boolean(errors.profile)}
+              text={errors?.profile?.message}
+            />
           </div>
           <div className={styles.gridItem}>
-            <label>Комментарий</label>
-            <input type="text" />
+            <label className={styles.textFieldLabel}>Комментарий</label>
+            <Input
+              {...register('comment')}
+              error={Boolean(errors.department)}
+            />
           </div>
           <div className={styles.gridItem}>
             <label>Отделение</label>
-            <select name="department"></select>
+            <Select
+              {...register('department')}
+              error={Boolean(errors.department)}
+              text={errors?.department?.message}
+            >
+              <option defaultValue=""></option>
+              <option value="Гинекологическое отделение">
+                Гинекологическое отделение
+              </option>
+            </Select>
           </div>
           <div className={styles.gridItem}>
             <label>Дата</label>
-            <input type="date" />
-            <button>Добавмить</button>
-
-            {/*<Button title={'Добавить'} type={'primary'} />*/}
+            <Input
+              {...register('date')}
+              type="date"
+              error={Boolean(errors.date)}
+              text={errors?.date?.message}
+            />
+          </div>
+          <div className={styles.gridItem}>
+            <Button variant={'primary'}>Добавить</Button>
           </div>
         </form>
       )}
