@@ -29,8 +29,9 @@
 .gridItemUl {
   grid-area: list;
   align-self: center;
+  justify-self: start;
+
   ul {
-    padding: 10px 20px;
     list-style: none;
     display: flex;
 
@@ -54,4 +55,9 @@
   grid-area: btn;
   align-self: center;
   justify-self: end;
+  margin-right: 10px;
+
+  @media (max-width: 550px) {
+    justify-self: start;
+  }
 }

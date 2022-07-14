@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Header.module.scss';
 import logo from '../../assets/img/logo.png';
-import { Button } from '../Button';
+import { UserPopup } from '../UserPopup';
 
 export const Header: React.FC = () => {
   return (
@@ -16,11 +16,8 @@ export const Header: React.FC = () => {
         </ul>
       </div>
       <div className={styles.gridItemBtn}>
-        <Button variant={'danger'}>Выход</Button>
+        <UserPopup />
       </div>
-      {/*<div className={styles.item4}>*/}
-      {/*  <Button variant={'danger'}>Выход</Button>*/}
-      {/*</div>*/}
     </div>
   );
 };

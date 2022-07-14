@@ -6,17 +6,17 @@ type Props = {
   text?: string;
 } & React.ComponentPropsWithoutRef<'input'>;
 
-export const Input = React.forwardRef<HTMLInputElement, Props>((props, ref) => {
-  return (
-    <div className={styles.root}>
-      <input
-        className={`${styles.input} ${props.error && styles.invalid}`}
-        ref={ref}
-        {...props}
-      />
-      {props.error && (
-        <label className={styles.errorMessage}>{props.text}</label>
-      )}
-    </div>
-  );
-});
+export const Input = React.forwardRef<HTMLInputElement, Props>(
+  ({ error, text, ...props }, ref) => {
+    return (
+      <div className={styles.root}>
+        <input
+          className={`${styles.input} ${error && styles.invalid}`}
+          ref={ref}
+          {...props}
+        />
+        {error && <label className={styles.errorMessage}>{text}</label>}
+      </div>
+    );
+  }
+);
