@@ -1,83 +1,52 @@
 .root {
   margin: 10px 0;
   border: 2px solid rgba(26, 26, 26, 0.1);
-
-  input, select {
-    font-size: 16px;
-  }
+  position: relative;
 }
 
 .content {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr 0.5fr;
   align-items: center;
+  grid-gap: 10px;
+
+
+  @media (max-width: 950px) {
+    width: 100%;
+    grid-template-columns: auto;
+  }
+
 }
 
 .date {
-  margin-left: 10px;
-  flex-basis: 20%;
   padding: 5px;
 }
 
 .dateGroup {
+  //width: 100%
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  //padding: 10px;
 }
 
 .depart {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 70%;
-  select{
-    font-size: 18px;
-  }
+  padding: 5px;
 }
 
 .search {
-  margin-left: 10px;
-  margin-top: 25px;
-  flex-basis: 10%;
-
-  input {
-    font-size: 16px;
-  }
-}
-
-input[type=date] {
-  width: 100%;
-  height: 35px;
-  margin: 0 auto;
-  font-size: 16px;
-  text-transform: uppercase;
-  border: 2px solid rgba(26, 26, 26, 0.1);
-  border-radius: 3px;
-  padding: 0 5px;
-
-  &::-webkit-datetime-edit-month-field {
-    color: #000000;
-  }
-  &::-webkit-datetime-edit-day-field {
-    color: #000000;
-  }
-  &::-webkit-datetime-edit-year-field {
-    color: #000000;
-  }
-
-  &::-webkit-calendar-picker-indicator {
-    &:hover {
-      background-color: lighten(#f8b002,40%);
-      color: darken(#fff, 10%);
-      cursor: pointer;
-    }
-    &:active {
-      border-bottom: 1px solid #f8b002;
-    }
-  }
+  align-self: end;
+  justify-self: end;
 }
 
 .form {
   border-top: 1px solid rgba(26, 26, 26, 0.1);
-  //background-color: rgba(26, 26, 26, 0.1);
   display: grid;
   grid-template-columns: repeat(3, 2fr);
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 2fr);
+  }
 
   button {
     width: 30%;
@@ -85,12 +54,12 @@ input[type=date] {
 }
 
 .gridItem {
-  height: 100%;
+  height: 100px;
+  position: relative;
   display: flex;
   flex-direction: column;
   margin: 5px;
   padding: 5px;
-  font-size: 16px;
   align-self: center;
 
   label {

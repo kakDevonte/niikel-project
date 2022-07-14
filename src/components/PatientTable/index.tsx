@@ -57,17 +57,17 @@ const patients = [
 export const PatientTable: React.FC = () => {
   return (
     <div className={styles.root}>
-      <table>
+      <table className={styles.table}>
         <thead>
           <tr>
-            <th style={{ width: '5%' }}>№</th>
-            <th style={{ width: '30%' }}>ФИО пациента</th>
-            <th style={{ width: '15%' }}>Контингент</th>
-            <th style={{ width: '20%' }}>Профиль</th>
-            <th style={{ width: '20%' }}>Заявитель</th>
-            <th style={{ width: '5%' }}>Допуск</th>
-            <th style={{ width: '30%' }}>Комментарии</th>
-            <th style={{ width: '5%' }}></th>
+            <th>№</th>
+            <th>ФИО пациента</th>
+            <th>Контингент</th>
+            <th>Профиль</th>
+            <th>Заявитель</th>
+            <th>Допуск</th>
+            <th>Комментарии</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

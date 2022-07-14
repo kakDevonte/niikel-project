@@ -52,8 +52,8 @@ export const PatientPanel: React.FC = () => {
             <button className={`${styles.buttonIcon} ${styles.buttonIconLeft}`}>
               <img src={arrowLeft} alt="arrow left" />
             </button>
-            <input type="date" />
-            <input type="date" />
+            <Input type="date" />
+            <Input type="date" />
             <button
               className={`${styles.buttonIcon} ${styles.buttonIconRight}`}
             >
@@ -82,13 +82,6 @@ export const PatientPanel: React.FC = () => {
         <div className={styles.search}>
           <Button variant={'primary'}>Поиск</Button>
         </div>
-        {/*<div className={styles.search}>*/}
-        {/*  <input*/}
-        {/*    className={styles.textField}*/}
-        {/*    placeholder="Введите ФИО пациента"*/}
-        {/*  />*/}
-        {/*  <Button title={'Найти пациента'} type={'primary'} />*/}
-        {/*</div>*/}
       </div>
       <div>
         <Button variant={'primary'} onClick={handleVisible}>
@@ -101,7 +94,7 @@ export const PatientPanel: React.FC = () => {
             <label>ФИО пациента</label>
             <Input
               {...register('name')}
-              error={Boolean(errors.name)}
+              error={!!errors.name}
               text={errors?.name?.message}
             />
           </div>
@@ -109,7 +102,7 @@ export const PatientPanel: React.FC = () => {
             <label>Контингент</label>
             <Select
               {...register('contingent')}
-              error={Boolean(errors.contingent)}
+              error={!!errors.contingent}
               text={errors?.contingent?.message}
             >
               <option defaultValue=""></option>
@@ -122,22 +115,19 @@ export const PatientPanel: React.FC = () => {
             <label>Профиль</label>
             <Input
               {...register('profile')}
-              error={Boolean(errors.profile)}
+              error={!!errors.profile}
               text={errors?.profile?.message}
             />
           </div>
           <div className={styles.gridItem}>
             <label className={styles.textFieldLabel}>Комментарий</label>
-            <Input
-              {...register('comment')}
-              error={Boolean(errors.department)}
-            />
+            <Input {...register('comment')} />
           </div>
           <div className={styles.gridItem}>
             <label>Отделение</label>
             <Select
               {...register('department')}
-              error={Boolean(errors.department)}
+              error={!!errors.department}
               text={errors?.department?.message}
             >
               <option defaultValue=""></option>
@@ -151,7 +141,7 @@ export const PatientPanel: React.FC = () => {
             <Input
               {...register('date')}
               type="date"
-              error={Boolean(errors.date)}
+              error={!!errors.date}
               text={errors?.date?.message}
             />
           </div>

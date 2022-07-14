@@ -9,12 +9,16 @@ type Props = {
 export const Select = React.forwardRef<HTMLSelectElement, Props>(
   (props, ref) => {
     return (
-      <>
-        <select className={styles.root} ref={ref} {...props} />
-        {!props.error && (
+      <div className={styles.root}>
+        <select
+          className={`${styles.select} ${props.error && styles.invalid}`}
+          ref={ref}
+          {...props}
+        />
+        {props.error && (
           <label className={styles.errorMessage}>{props.text}</label>
         )}
-      </>
+      </div>
     );
   }
 );

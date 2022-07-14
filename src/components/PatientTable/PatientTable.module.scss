@@ -1,17 +1,26 @@
 .root {
   height: 100%;
-  display: flex;
 
-  @media (max-width: 1340px) {
-    font-size: 14px;
   }
-
-  table {
+  .table {
     text-align: center;
     width: 100%;
     margin-bottom: 20px;
     border: 1px solid #dddddd;
     border-collapse: collapse;
+
+    @media screen and (max-width: 770px) {
+       tr{
+        display: block;
+      }
+       tr{
+        margin-bottom: 30px;
+      }
+       th, td{
+        display: block;
+        text-align: center;
+      }
+    }
 
     tbody tr:hover {
       background-color: rgba(248, 176, 2, 0.05);
@@ -30,7 +39,6 @@
       padding: 5px;
     }
   }
-}
 
 .active {
   background-color: rgba(248, 176, 2, 0.05);
@@ -39,11 +47,10 @@
 
 .buttons {
   display: flex;
-
+  justify-content: center;
 }
 
 .button {
-  display: inline-block;
   border-radius: 50px;
   width: 40px;
   height: 40px;

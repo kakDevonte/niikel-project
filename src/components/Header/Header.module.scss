@@ -1,55 +1,57 @@
-.header {
-  height: 80px;
-  display: flex;
-  justify-content: space-between;
+.container {
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  grid-template-areas: "icon list btn";
   border-bottom: 1px solid rgba(26, 26, 26, 0.1);
 
-  &Image {
-    display: flex;
-    flex-basis: 5%;
-    img {
-      margin-left: 15px;
-      margin-bottom: 5px;
-    }
+  @media (max-width: 550px) {
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas:
+    "icon list"
+    "icon btn";
+  }
+}
+
+.gridItemIcon {
+  align-self: center;
+  justify-self: center;
+  grid-area: icon;
+
+  img {
+    margin-right: 10px;
+    max-width: 100px;
+    max-height: 100%;
   }
 
-  &Info {
+}
+
+.gridItemUl {
+  grid-area: list;
+  align-self: center;
+  ul {
+    padding: 10px 20px;
+    list-style: none;
     display: flex;
-    flex-basis: 15%;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-  }
 
-  &Menu{
-    flex-basis: 85%;
-    ul {
-      padding: 10px 20px;
-      list-style: none;
-      display: flex;
-
-      li {
-        font-size: 18px;
-        padding: 15px 20px;
-        margin-right: 10px;
-        cursor: pointer;
-        transition: background-color 0.1s ease-in-out;
+    li {
+      font-size: 18px;
+      margin-right: 10px;
+      cursor: pointer;
 
       &:hover {
         color: #f8b002;
-        //border-bottom: 3px solid #f8b002;
       }
 
       &:active {
         color: #f8b002;
-        //border-bottom: 3px solid #f8b002;
-      }
-
-      &.active {
-        color: #f8b002;
-        //border-bottom: 1px solid #f8b002;
       }
     }
   }
-    }
+}
+
+.gridItemBtn {
+  grid-area: btn;
+  align-self: center;
+  justify-self: end;
 }

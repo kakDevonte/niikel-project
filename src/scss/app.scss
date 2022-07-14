@@ -14,6 +14,12 @@
   margin: 0 auto;
   border-radius: 10px;
   max-width: 1400px;
+
+  @media (max-width: 845px) {
+    width: calc(100vw - 30px);
+    margin-top: 15px;
+  }
+
 }
 
 .d-none {

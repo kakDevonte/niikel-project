@@ -8,11 +8,15 @@ type Props = {
 
 export const Input = React.forwardRef<HTMLInputElement, Props>((props, ref) => {
   return (
-    <>
-      <input className={styles.root} ref={ref} {...props} />
-      {!props.error && (
+    <div className={styles.root}>
+      <input
+        className={`${styles.input} ${props.error && styles.invalid}`}
+        ref={ref}
+        {...props}
+      />
+      {props.error && (
         <label className={styles.errorMessage}>{props.text}</label>
       )}
-    </>
+    </div>
   );
 });

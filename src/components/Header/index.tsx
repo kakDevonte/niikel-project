@@ -1,23 +1,26 @@
 import React from 'react';
 import styles from './Header.module.scss';
 import logo from '../../assets/img/logo.png';
-import { UserPopup } from '../UserPopup';
+import { Button } from '../Button';
 
 export const Header: React.FC = () => {
   return (
-    <div className={styles.header}>
-      <div className={styles.headerImage}>
+    <div className={styles.container}>
+      <div className={styles.gridItemIcon}>
         <img src={logo} alt="NIIKEL logo" />
       </div>
-      <div className={styles.headerMenu}>
+      <div className={styles.gridItemUl}>
         <ul>
           <li>Чеклисты</li>
           <li>Госпитализация</li>
         </ul>
       </div>
-      <div className={styles.headerInfo}>
-        <UserPopup />
+      <div className={styles.gridItemBtn}>
+        <Button variant={'danger'}>Выход</Button>
       </div>
+      {/*<div className={styles.item4}>*/}
+      {/*  <Button variant={'danger'}>Выход</Button>*/}
+      {/*</div>*/}
     </div>
   );
 };
