@@ -10,17 +10,16 @@ type ButtonType = {
 };
 
 const ButtonStyles: ButtonType = {
-  danger: styles.buttonDanger,
-  primary: styles.buttonPrimary,
+  danger: `${styles.button} ${styles.buttonDanger}`,
+  primary: `${styles.button} ${styles.buttonPrimary}`,
+  outlinePrimary: `${styles.buttonIcon} ${styles.buttonIconEdit}`,
+  outlineDanger: `${styles.buttonIcon} ${styles.buttonIconDelete}`,
 };
 
 export const Button: React.FC<ButtonProps> = (props) => {
   return (
     <>
-      <button
-        className={`${styles.button} ${ButtonStyles[props.variant]}`}
-        {...props}
-      >
+      <button className={`${ButtonStyles[props.variant]}`} {...props}>
         {props.children}
       </button>
     </>

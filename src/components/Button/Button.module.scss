@@ -36,3 +36,43 @@ $duration: 0.15s;
   }
 
 }
+
+.buttonIcon {
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  background-color: transparent;
+
+  &Edit {
+    border: 2px solid #f8b002;
+
+    &:hover {
+      background-color: #f8b002;
+    }
+
+    &:active {
+      background-color: darken(#f8b002, 20%);
+      border: 2px solid darken(#f8b002, 20%);
+      transform: translateY(1px);
+    }
+  }
+
+  &Delete {
+    border: 2px solid red;
+
+    &:hover {
+      background-color: red;
+    }
+
+    &:active {
+      background-color: darken(red, 20%);
+      border: 2px solid darken(red, 20%);
+      transform: translateY(1px);
+    }
+  }
+}

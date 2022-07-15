@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './PatientTable.module.scss';
 import editIcon from '../../assets/img/edit.svg';
 import trashIcon from '../../assets/img/trash.svg';
+import { Table } from '../Table';
 
 const patients = [
   {
@@ -57,7 +58,7 @@ const patients = [
 export const PatientTable: React.FC = () => {
   return (
     <div className={styles.root}>
-      <table className={styles.table}>
+      <Table>
         <thead>
           <tr>
             <th>№</th>
@@ -93,7 +94,7 @@ export const PatientTable: React.FC = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 };

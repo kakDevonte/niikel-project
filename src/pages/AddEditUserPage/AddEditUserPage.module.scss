@@ -1,0 +1,85 @@
+.root {
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 20px;
+
+  h1 {
+    font-weight: normal;
+    margin-left: 10px;
+  }
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+        "firstName firstName lastName lastName"
+        "email email role department"
+        "passInfo passInfo passInfo passInfo"
+        "pass pass confirmPass confirmPass"
+        "button . . .";
+
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+        "firstName lastName"
+        "email role"
+        "department department"
+        "passInfo passInfo"
+        "pass confirmPass"
+        "button .";
+  }
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "firstName"
+        "lastName"
+        "email"
+        "role"
+        "department"
+        "passInfo"
+        "pass"
+        "confirmPass"
+        "button";
+  }
+
+}
+
+.gridItem {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  padding: 5px;
+  align-self: center;
+}
+
+.firstName {
+  grid-area: firstName;
+}
+.lastName {
+  grid-area: lastName;
+}
+.email {
+  grid-area: email;
+}
+.role {
+  grid-area: role;
+}
+.department {
+  grid-area: department;
+}
+.passInfo {
+  grid-area: passInfo;
+}
+.pass {
+  grid-area: pass;
+}
+.confirmPass {
+  grid-area: confirmPass;
+}
+.button {
+  grid-area: button;
+}

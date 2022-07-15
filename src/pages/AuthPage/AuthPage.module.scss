@@ -1,0 +1,32 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40vh;
+
+  @media (max-width: 845px) {
+    width: 30vh;
+  }
+
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 20px;
+
+  h2 {
+    text-align: center;
+    padding: 25px;
+  }
+}
+
+.item {
+  height: 75px;
+  padding: 10px;
+
+  button {
+    width: 100%;
+  }
+}
