@@ -51,11 +51,11 @@
   }
 }
 
-.gridItemBtn {
+.gridItemUser {
   grid-area: btn;
   align-self: center;
   justify-self: end;
-  margin-right: 10px;
+  margin-right: 5vw;
 
   @media (max-width: 550px) {
     justify-self: start;

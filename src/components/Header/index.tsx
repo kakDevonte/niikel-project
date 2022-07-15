@@ -15,7 +15,7 @@ export const Header: React.FC = () => {
           <li>Госпитализация</li>
         </ul>
       </div>
-      <div className={styles.gridItemBtn}>
+      <div className={styles.gridItemUser}>
         <UserPopup />
       </div>
     </div>
