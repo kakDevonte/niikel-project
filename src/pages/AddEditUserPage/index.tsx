@@ -7,6 +7,7 @@ import { Button } from '../../components/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import * as yup from 'yup';
+import { Link } from 'react-router-dom';
 
 type UserType = {
   firstName: string;
@@ -126,7 +127,10 @@ export const AddEditUserPage: React.FC = () => {
           />
         </div>
         <div className={` ${styles.button}`}>
-          <Button variant={'primary'}>Добавить</Button>
+          <Link to={'/admin/users'}>Назад</Link>
+          <Button variant={'primary'} type="submit">
+            Добавить
+          </Button>
         </div>
       </form>
     </div>

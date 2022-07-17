@@ -1,9 +1,12 @@
 .root {
   text-align: center;
   width: 100%;
+  width: 100%;
   margin-bottom: 20px;
   border: 1px solid #dddddd;
   border-collapse: collapse;
+  table-layout: fixed;
+
 
   @media screen and (max-width: 770px) {
     tr{
@@ -31,6 +34,7 @@
   }
 
   td {
+    max-width: 100%;
     border: 1px solid #dddddd;
     padding: 5px;
   }

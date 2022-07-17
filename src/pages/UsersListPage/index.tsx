@@ -3,6 +3,7 @@ import { Table } from '../../components/Table';
 import { Button } from '../../components/Button';
 import editIcon from '../../assets/img/edit.svg';
 import trashIcon from '../../assets/img/trash.svg';
+import { Link } from 'react-router-dom';
 
 const users = [
   {
@@ -45,7 +46,9 @@ const users = [
 export const UsersListPage: React.FC = () => {
   return (
     <div>
-      <Button variant={'primary'}>Добавить пользователя</Button>
+      <Button variant={'primary'}>
+        <Link to={'/admin/users/editor'}>Добавить пользователя</Link>
+      </Button>
       <Table>
         <thead>
           <tr>

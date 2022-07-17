@@ -5,17 +5,27 @@ import { AuthPage } from './pages/AuthPage';
 import { HospitalPlan } from './pages/HospitalPlan';
 import { UsersListPage } from './pages/UsersListPage';
 import { AddEditUserPage } from './pages/AddEditUserPage';
+import { Outlet, Route, Routes } from 'react-router-dom';
+import { AdminWrapper } from './layouts/AdminWrapper';
 
 function App() {
   return (
     <div>
-      <Header />
-      <div className="wrapper">
-        {/*<AuthPage />*/}
-        {/*<HospitalPlan />*/}
-        {/*<UsersListPage />*/}
-        <AddEditUserPage />
-      </div>
+      <Routes>
+        <Route path="/admin" element={<AdminWrapper />}>
+          <Route path="gosp" element={<HospitalPlan />} />
+          <Route path="users" element={<Outlet />}>
+            <Route index element={<UsersListPage />} />
+            <Route path="editor/*" element={<AddEditUserPage />} />
+          </Route>
+        </Route>
+
+        <Route path="/login" element={<AuthPage />} />
+      </Routes>
+      {/*<AuthPage />*/}
+      {/*<HospitalPlan />*/}
+      {/*<UsersListPage />*/}
+      {/*<AddEditUserPage />*/}
     </div>
   );
 }
