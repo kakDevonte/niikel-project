@@ -6,6 +6,9 @@ import styles from './AuthPage.module.scss';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { login } from '../../redux/auth/asyncActions';
+import { useNavigate } from 'react-router-dom';
 
 type AuthType = {
   email: string;
@@ -21,14 +24,28 @@ const schema = yup.object().shape({
 });
 
 export const AuthPage: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { isAuth, status, role } = useAppSelector((state) => state.auth);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<AuthType>({ mode: 'onBlur', resolver: yupResolver(schema) });
 
+  React.useEffect(() => {
+    console.log(isAuth, role);
+    if (isAuth) {
+      switch (role) {
+        case 'admin':
+          navigate('/admin');
+      }
+    }
+  }, [isAuth, role]);
+
   const onSubmit: SubmitHandler<AuthType> = (data) => {
-    console.log(data);
+    const { email, password } = data;
+    dispatch(login({ email, password }));
   };
 
   return (

@@ -5,8 +5,9 @@ import { AuthPage } from './pages/AuthPage';
 import { HospitalPlan } from './pages/HospitalPlan';
 import { UsersListPage } from './pages/UsersListPage';
 import { AddEditUserPage } from './pages/AddEditUserPage';
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { AdminWrapper } from './layouts/AdminWrapper';
+import { LoadingSpinner } from './components/LoadingSpinner';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
             <Route path="editor/*" element={<AddEditUserPage />} />
           </Route>
         </Route>
-
+        <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<AuthPage />} />
       </Routes>
       {/*<AuthPage />*/}

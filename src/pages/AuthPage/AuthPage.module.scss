@@ -6,10 +6,10 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 40vh;
+  width: calc(300px + 10%);
 
   @media (max-width: 845px) {
-    width: 30vh;
+   // width: 30vh;
   }
 
   transform: translate(-50%, -50%);
@@ -23,7 +23,7 @@
 }
 
 .item {
-  height: 75px;
+  height: 100px;
   padding: 10px;
 
   button {
