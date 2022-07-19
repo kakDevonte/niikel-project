@@ -1,13 +1,18 @@
 import React from 'react';
 import { Header } from '../components/Header';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../utils/useAuth';
 
 export const AdminWrapper: React.FC = () => {
+  if (!useAuth('admin')) return <Navigate to={'/'} />;
+
   return (
     <>
-      <Header />
-      <div className="wrapper">
-        <Outlet />
+      <div>
+        <Header />
+        <div className="wrapper">
+          <Outlet />
+        </div>
       </div>
     </>
   );

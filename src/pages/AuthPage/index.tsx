@@ -9,6 +9,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { login } from '../../redux/auth/asyncActions';
 import { useNavigate } from 'react-router-dom';
+import { Status } from '../../redux/auth/types';
 
 type AuthType = {
   email: string;
@@ -26,7 +27,8 @@ const schema = yup.object().shape({
 export const AuthPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isAuth, status, role } = useAppSelector((state) => state.auth);
+  const { isAuth, role } = useAppSelector((state) => state.auth.data);
+
   const {
     register,
     handleSubmit,
@@ -34,14 +36,15 @@ export const AuthPage: React.FC = () => {
   } = useForm<AuthType>({ mode: 'onBlur', resolver: yupResolver(schema) });
 
   React.useEffect(() => {
-    console.log(isAuth, role);
+    console.log(isAuth, 'мы ререндеримся');
     if (isAuth) {
       switch (role) {
         case 'admin':
           navigate('/admin');
+          break;
       }
     }
-  }, [isAuth, role]);
+  }, [isAuth]);
 
   const onSubmit: SubmitHandler<AuthType> = (data) => {
     const { email, password } = data;

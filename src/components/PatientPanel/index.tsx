@@ -45,41 +45,56 @@ export const PatientPanel: React.FC = () => {
   };
   return (
     <div className={styles.root}>
-      <div className={styles.content}>
-        <div className={styles.date}>
-          <span>Дата: </span>
-          <div className={styles.dateGroup}>
-            <button className={`${styles.buttonIcon} ${styles.buttonIconLeft}`}>
-              <img src={arrowLeft} alt="arrow left" />
-            </button>
-            <Input type="date" />
-            <Input type="date" />
-            <button
-              className={`${styles.buttonIcon} ${styles.buttonIconRight}`}
-            >
-              <img src={arrowRight} alt="arrow right" />
-            </button>
-          </div>
+      {/*<div className={styles.content}>*/}
+      {/*  <div className={styles.date}>*/}
+      {/*    <span>Дата: </span>*/}
+      {/*    <div className={styles.dateGroup}>*/}
+      {/*      <Button variant={'outlinePrimary'}>*/}
+      {/*        <img src={arrowLeft} alt="arrow left" />*/}
+      {/*      </Button>*/}
+      {/*      <Input type="date" />*/}
+      {/*      /!*<Input type="date" />*!/*/}
+      {/*      <Button variant={'outlinePrimary'}>*/}
+      {/*        <img src={arrowRight} alt="arrow right" />*/}
+      {/*      </Button>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*  <div className={styles.depart}>*/}
+      {/*    <span>Отделение: </span>*/}
+      {/*    <Select name="department">*/}
+      {/*      <option defaultValue=""></option>*/}
+      {/*      <option value="Гинекологическое отделение">*/}
+      {/*        Гинекологическое отделение*/}
+      {/*      </option>*/}
+      {/*      <option value="Хирургическое отделение">*/}
+      {/*        Хирургическое отделение*/}
+      {/*      </option>*/}
+      {/*      <option value="Ревматологическое отделение">*/}
+      {/*        Ревматологическое отделение*/}
+      {/*      </option>*/}
+      {/*      <option value="Эндокринологическое отделение">*/}
+      {/*        Эндокринологическое отделение*/}
+      {/*      </option>*/}
+      {/*    </Select>*/}
+      {/*  </div>*/}
+      {/*  <div className={styles.search}>*/}
+      {/*    <Button variant={'primary'}>Поиск</Button>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
+
+      <div className={styles.panel}>
+        <div className={styles.panelDate}>
+          <label>Дата:</label>
+          <Button variant={'outlinePrimary'}>А</Button>
+          <Input type="date" />
+          <Input type="date" />
+          <Button variant={'outlinePrimary'}>А</Button>
         </div>
-        <div className={styles.depart}>
-          <span>Отделение: </span>
-          <Select name="department">
-            <option defaultValue=""></option>
-            <option value="Гинекологическое отделение">
-              Гинекологическое отделение
-            </option>
-            <option value="Хирургическое отделение">
-              Хирургическое отделение
-            </option>
-            <option value="Ревматологическое отделение">
-              Ревматологическое отделение
-            </option>
-            <option value="Эндокринологическое отделение">
-              Эндокринологическое отделение
-            </option>
-          </Select>
+        <div className={styles.panelDepartment}>
+          <label>Отделение:</label>
+          <Select></Select>
         </div>
-        <div className={styles.search}>
+        <div className={styles.panelSearch}>
           <Button variant={'primary'}>Поиск</Button>
         </div>
       </div>

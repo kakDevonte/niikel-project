@@ -1,8 +1,48 @@
 .root {
   margin: 10px 0;
+  padding: 10px;
   border: 2px solid rgba(26, 26, 26, 0.1);
-  position: relative;
 }
+
+.panel {
+  display: grid;
+  //grid-template-columns: 1fr 2fr 1fr;
+  grid-template-areas:
+        "date depart search";
+
+  align-items: center;
+  //justify-items: center;
+
+  @media (max-width: 950px) {
+    grid-template-areas:
+            "date"
+            "depart"
+            "search";
+  }
+}
+
+.panelDate {
+  grid-area: date;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(115, 40, 40, 0.88);
+}
+
+.panelDepartment {
+  grid-area: depart;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(115, 40, 40, 0.88);
+}
+
+.panelSearch {
+  grid-area: search;
+  border: 1px solid rgba(115, 40, 40, 0.88);
+}
+
+
+
+
 
 .content {
   display: grid;
@@ -30,6 +70,8 @@
 .dateGroup {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .depart {

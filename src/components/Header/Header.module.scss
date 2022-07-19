@@ -35,6 +35,11 @@
     list-style: none;
     display: flex;
 
+    a, a:hover, a:focus, a:active {
+      text-decoration: none;
+      color: inherit;
+    }
+
     li {
       font-size: 18px;
       margin-right: 10px;

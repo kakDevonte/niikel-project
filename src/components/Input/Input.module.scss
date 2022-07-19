@@ -6,7 +6,9 @@
 }
 
 .input {
-  width: auto;
+
+  width: 100%;
+  //max-width: 475px;
   border: 2px solid rgba(26, 26, 26, 0.1);
   border-radius: 5px;
   padding: 5px;

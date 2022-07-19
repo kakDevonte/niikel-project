@@ -1,16 +1,15 @@
-import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import { useAppSelector } from '../redux/store';
 
-export const useAuth = (pageRole: string) => {
-  const navigate = useNavigate();
-  //const { isAuth, role } = useSelector(state => state.auth)
-  const [isLogin, setLogin] = React.useState(false);
+export const useAuth = (pageRole: string): boolean => {
+  const { isAuth, role } = useAppSelector((state) => state.auth.data);
+  const isLogin = React.useRef(false);
 
-  // if (isAuth && role === pageRole) {
-  //   setLogin(true);
-  // } else {
-  //   setLogin(false);
-  //   navigate('/login');
-  // }
-  return isLogin;
+  if (isAuth && role === pageRole) {
+    isLogin.current = true;
+  } else {
+    isLogin.current = false;
+  }
+
+  return isLogin.current;
 };

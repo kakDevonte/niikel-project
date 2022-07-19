@@ -1,8 +1,12 @@
-export type AuthState = {
+export type AuthDataType = {
   isAuth: boolean;
   role: string;
   department: string;
   name: string;
+};
+
+export type AuthState = {
+  data: AuthDataType;
   status?: Status;
 };
 
@@ -15,5 +19,4 @@ export enum Status {
   LOADING = 'loading',
   SUCCESS = 'success',
   ERROR = 'error',
-  WAIT = 'wait',
 }
