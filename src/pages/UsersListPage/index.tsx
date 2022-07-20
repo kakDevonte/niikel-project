@@ -1,49 +1,28 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { Table } from '../../components/Table';
 import { Button } from '../../components/Button';
 import editIcon from '../../assets/img/edit.svg';
 import trashIcon from '../../assets/img/trash.svg';
-import { Link } from 'react-router-dom';
-
-const users = [
-  {
-    firsName: 'Александр',
-    lastName: 'Хатюшин',
-    email: 'admin@mail.ru',
-    role: 'admin',
-    department: 'Хирургия',
-  },
-  {
-    firsName: 'Александр',
-    lastName: 'Хатюшин',
-    email: 'admin@mail.ru',
-    role: 'admin',
-    department: 'Хирургия',
-  },
-  {
-    firsName: 'Александр',
-    lastName: 'Хатюшин',
-    email: 'admin@mail.ru',
-    role: 'admin',
-    department: 'Хирургия',
-  },
-  {
-    firsName: 'Александр',
-    lastName: 'Хатюшин',
-    email: 'admin@mail.ru',
-    role: 'admin',
-    department: 'Хирургия',
-  },
-  {
-    firsName: 'Александр',
-    lastName: 'Хатюшин',
-    email: 'admin@mail.ru',
-    role: 'admin',
-    department: 'Хирургия',
-  },
-];
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { deleteUser, getUsers } from '../../redux/users/asyncActions';
+import { toggleEditMode } from '../../redux/users/slice';
 
 export const UsersListPage: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { users } = useAppSelector((state) => state.users);
+
+  React.useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+
+  const onClickEditUser = (id: string) => {
+    dispatch(toggleEditMode(true));
+    navigate(`editor/${id}`);
+  };
+
   return (
     <div>
       <Button variant={'primary'}>
@@ -60,19 +39,25 @@ export const UsersListPage: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
-            <tr key={index}>
+          {users.map((user) => (
+            <tr key={user._id}>
               <td>
-                {user.firsName} {user.lastName}
+                {user.firstName} {user.lastName}
               </td>
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>{user.department}</td>
               <td>
-                <Button variant={'outlinePrimary'}>
+                <Button
+                  variant={'outlinePrimary'}
+                  onClick={() => onClickEditUser(user._id)}
+                >
                   <img src={editIcon} />
                 </Button>
-                <Button variant={'outlineDanger'}>
+                <Button
+                  variant={'outlineDanger'}
+                  onClick={() => dispatch(deleteUser(user._id))}
+                >
                   <img src={trashIcon} />
                 </Button>
               </td>

@@ -7,54 +7,80 @@ import { Button } from '../../components/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import * as yup from 'yup';
-import { Link } from 'react-router-dom';
-
-type UserType = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: string;
-  department: string;
-  password: string;
-  confirmPassword?: string;
-};
-
-const schema = yup.object().shape({
-  firstName: yup.string().required('Требуется ввести имя'),
-  lastName: yup.string().required('Требуется ввести фамилию'),
-  email: yup
-    .string()
-    .required('Требуется выбрать контингент')
-    .email('Некорректная почта'),
-  role: yup.string().required('Требуется выбрать роль'),
-  department: yup.string().required('Требуется выбрать отделение'),
-  password: yup
-    .string()
-    //.concat(isEditMode ? null : yup.string().required('Требуется ввести пароль'))
-    .min(6, 'Пароль должен состоять не менее чем из 6 символов'),
-  confirmPassword: yup
-    .string()
-    .when('password', (password, schema) => {
-      if (password)
-        return schema.required('Требуется ввести пароль для подтверждения');
-    })
-    .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
-});
+import { Link, useMatch, useNavigate } from 'react-router-dom';
+import { UserType } from '../../redux/users/types';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import {
+  createUser,
+  getUserById,
+  updateUser,
+} from '../../redux/users/asyncActions';
+import { toggleEditMode } from '../../redux/users/slice';
+import { DEPARTMENTS } from '../../utils/departments';
 
 export const AddEditUserPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { currUser, isEditMode } = useAppSelector((state) => state.users);
+  const match = useMatch('admin/users/editor/:id/');
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (match && match.params.id) dispatch(getUserById(match.params.id));
+  }, []);
+
+  const schema = yup.object().shape({
+    firstName: yup.string().required('Требуется ввести имя'),
+    lastName: yup.string().required('Требуется ввести фамилию'),
+    email: yup
+      .string()
+      .required('Требуется выбрать контингент')
+      .email('Некорректная почта'),
+    role: yup.string().required('Требуется выбрать роль'),
+    department: yup.string().required('Требуется выбрать отделение'),
+    password: yup
+      .string()
+      .concat(
+        isEditMode
+          ? yup.string()
+          : yup.string().required('Требуется ввести пароль')
+      ),
+    confirmPassword: yup
+      .string()
+      .when('password', (password, schema) => {
+        if (password)
+          return schema.required('Требуется ввести пароль для подтверждения');
+      })
+      .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
+  });
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<UserType>({ mode: 'onBlur', resolver: yupResolver(schema) });
 
+  React.useEffect(() => {
+    if (isEditMode) {
+      setValue('_id', currUser._id);
+      setValue('firstName', currUser.firstName);
+      setValue('lastName', currUser.lastName);
+      setValue('email', currUser.email);
+      setValue('role', currUser.role);
+      setValue('department', currUser.department);
+    }
+  }, [currUser]);
+
   const onSubmit: SubmitHandler<UserType> = (data) => {
-    console.log(data);
+    isEditMode ? dispatch(updateUser(data)) : dispatch(createUser(data));
+    navigate(-1);
   };
 
   return (
     <div className={styles.root}>
-      <h1>Добавление пользователя</h1>
+      <h1>
+        {isEditMode ? 'Редактирование пользователя' : 'Добавление пользователя'}
+      </h1>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={`${styles.gridItem} ${styles.firstName}`}>
           <label>Имя</label>
@@ -103,13 +129,19 @@ export const AddEditUserPage: React.FC = () => {
             text={errors?.department?.message}
           >
             <option disabled value="" />
-            <option value="admin">Админ</option>
+            {Object.entries(DEPARTMENTS).map(([key, val]) => (
+              <option key={key} value={val}>
+                {val}
+              </option>
+            ))}
           </Select>
         </div>
-        <div className={`${styles.gridItem} ${styles.passInfo}`}>
-          <h3>Изменить пароль</h3>
-          <p>Оставьте поле пустым, чтобы сохранить тот же пароль</p>
-        </div>
+        {isEditMode && (
+          <div className={`${styles.gridItem} ${styles.passInfo}`}>
+            <h3>Изменить пароль</h3>
+            <p>Оставьте поле пустым, чтобы сохранить тот же пароль</p>
+          </div>
+        )}
         <div className={`${styles.gridItem} ${styles.pass}`}>
           <label>Пароль</label>
           <Input
@@ -127,7 +159,12 @@ export const AddEditUserPage: React.FC = () => {
           />
         </div>
         <div className={` ${styles.button}`}>
-          <Link to={'/admin/users'}>Назад</Link>
+          <Link
+            to={'/admin/users'}
+            onClick={() => dispatch(toggleEditMode(false))}
+          >
+            Назад
+          </Link>
           <Button variant={'primary'} type="submit">
             Добавить
           </Button>

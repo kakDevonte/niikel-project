@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { UserType } from '../redux/users/types';
 
 const instance = axios.create({
   withCredentials: true,
@@ -15,5 +16,23 @@ export const authAPI = {
   },
   logout() {
     return instance.delete(`auth/`);
+  },
+};
+
+export const usersAPI = {
+  get() {
+    return instance.get(`users/`);
+  },
+  getById(id: string) {
+    return instance.get(`users/${id}`);
+  },
+  create(user: UserType) {
+    return instance.post(`users/`, user);
+  },
+  update(user: UserType) {
+    return instance.put(`users/`, user);
+  },
+  delete(id: string) {
+    return instance.delete(`users/${id}`);
   },
 };
