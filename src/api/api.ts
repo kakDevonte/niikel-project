@@ -36,3 +36,24 @@ export const usersAPI = {
     return instance.delete(`users/${id}`);
   },
 };
+
+export const hospitalAPI = {
+  search(patient: string) {
+    return instance.post('search/', { patient });
+  },
+  getAll(date: string) {
+    return instance.post('getall/', { date });
+  },
+  get(date: string, department: string) {
+    return instance.post(`get/`, { date, department });
+  },
+  create(data: string) {
+    return instance.post(``, { data });
+  },
+  update(data: string) {
+    return instance.put(``, { data });
+  },
+  delete(data: string) {
+    return instance.post(`delete/`, { data });
+  },
+};

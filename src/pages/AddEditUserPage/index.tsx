@@ -1,9 +1,7 @@
 import React from 'react';
 
 import styles from './AddEditUserPage.module.scss';
-import { Input } from '../../components/Input';
-import { Select } from '../../components/Select';
-import { Button } from '../../components/Button';
+import { Input, Select, Button } from '../../components/';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import * as yup from 'yup';

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UsersState } from './types';
-import { createUser, getUserById, getUsers, updateUser } from './asyncActions';
+import { getUserById, getUsers } from './asyncActions';
 
 const initialState: UsersState = {
   users: [],

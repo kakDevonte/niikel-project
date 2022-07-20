@@ -1,6 +1,5 @@
 import React from 'react';
-import { PatientTable } from '../../components/PatientTable';
-import { PatientPanel } from '../../components/PatientPanel';
+import { PatientTable, PatientPanel } from '../../components/';
 
 export const HospitalPlan: React.FC = () => {
   return (
