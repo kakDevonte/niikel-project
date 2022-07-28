@@ -1,109 +1,48 @@
 import React from 'react';
 import styles from './PatientTable.module.scss';
-import editIcon from '../../assets/img/edit.svg';
-import trashIcon from '../../assets/img/trash.svg';
 import { Table } from '../Table';
-import { Button } from '../Button';
-import { Input } from '../Input';
 import { TableRow } from '../TableRow';
-
-const patients = [
-  {
-    id: 1,
-    name: 'Хатюшин Александр Сергеевич',
-    contingent: '51',
-    profile: 'Хирургия',
-    declarer: 'Вася Пупкин',
-    isAdmit: 'false',
-    comment: 'Коммент',
-  },
-  {
-    id: 2,
-    name: 'Хатюшин Александр Сергеевич',
-    contingent: '51',
-    profile: 'Хирургия',
-    declarer: 'Вася Пупкин',
-    isAdmit: 'false',
-    comment: 'Коммент',
-  },
-  {
-    id: 3,
-    name: 'Хатюшин Александр Сергеевич',
-    contingent: '51',
-    profile: 'Хирургия',
-    declarer: 'Вася Пупкин',
-    isAdmit: 'false',
-    comment: 'Коммент',
-  },
-  {
-    id: 4,
-    name: 'Хатюшин Александр Сергеевич',
-    contingent: '51',
-    profile: 'Хирургия',
-    declarer: 'Вася Пупкин',
-    isAdmit: 'false',
-    comment: 'Коммент',
-  },
-  {
-    id: 5,
-    name: 'Хатюшин Александр Сергеевич',
-    contingent: '51',
-    profile: 'Хирургия',
-    declarer: 'Вася Пупкин',
-    isAdmit: 'false',
-    comment: 'Коммент',
-  },
-  {
-    id: 6,
-    name: 'Хатюшин Александр Сергеевич',
-    contingent: '51',
-    profile: 'Хирургия',
-    declarer: 'Вася Пупкин',
-    isAdmit: 'false',
-    comment: 'Коммент',
-  },
-  {
-    id: 7,
-    name: 'Хатюшин Александр Сергеевич',
-    contingent: '51',
-    profile: 'Хирургия',
-    declarer: 'Вася Пупкин',
-    isAdmit: 'false',
-    comment: 'Коммент',
-  },
-  {
-    id: 8,
-    name: 'Хатюшин Александр Сергеевич',
-    contingent: '51',
-    profile: 'Хирургия',
-    declarer: 'Вася Пупкин',
-    isAdmit: 'false',
-    comment: 'Коммент',
-  },
-];
+import { useAppSelector } from '../../redux/store';
 
 export const PatientTable: React.FC = () => {
+  const { hospitalDays } = useAppSelector((state) => state.hospital);
+
+  console.log(hospitalDays);
   return (
     <div className={styles.root}>
-      <Table>
-        <thead>
-          <tr>
-            <th style={{ width: 5 + '%' }}>№</th>
-            <th>ФИО пациента</th>
-            <th>Контингент</th>
-            <th>Профиль</th>
-            <th>Заявитель</th>
-            <th>Допуск</th>
-            <th>Комментарии</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {patients.map((patient) => (
-            <TableRow key={patient.id} {...patient} />
-          ))}
-        </tbody>
-      </Table>
+      {hospitalDays &&
+        hospitalDays.map((day, index) => (
+          <div key={index}>
+            <h3>
+              {new Date(day.date).toLocaleDateString('ru-RU')} {day.department}
+            </h3>
+            <Table>
+              <thead>
+                <tr>
+                  <th style={{ width: 5 + '%' }}>№</th>
+                  <th>ФИО пациента</th>
+                  <th>Контингент</th>
+                  <th>Профиль</th>
+                  <th>Заявитель</th>
+                  <th>Допуск</th>
+                  <th>Комментарии</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {day.patients.map((patient, index) => (
+                  <TableRow
+                    key={patient.id}
+                    {...patient}
+                    index={index}
+                    department={day.department}
+                    date={day.date}
+                  />
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        ))}
     </div>
   );
 };

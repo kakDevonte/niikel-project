@@ -42,6 +42,18 @@ export const AuthPage: React.FC = () => {
         case 'admin':
           navigate('/admin');
           break;
+        case 'head':
+          navigate('/admin');
+          break;
+        case 'userHospital':
+          navigate('/user');
+          break;
+        case 'userChecklist':
+          navigate('/user');
+          break;
+        case 'guest':
+          navigate('/user');
+          break;
       }
     }
   }, [isAuth]);

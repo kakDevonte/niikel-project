@@ -9,6 +9,7 @@ import { AdminWrapper } from './layouts/AdminWrapper';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { useAppDispatch, useAppSelector } from './redux/store';
 import { getUserData } from './redux/auth/asyncActions';
+import { UserWrapper } from './layouts/UserWrapper';
 
 function App() {
   const { status } = useAppSelector((state) => state.auth);
@@ -28,6 +29,11 @@ function App() {
               <Route index element={<UsersListPage />} />
               <Route path="editor/*" element={<AddEditUserPage />} />
             </Route>
+          </Route>
+          <Route path="/user" element={<UserWrapper />}>
+            <Route index element={<HospitalPlan />} />
+            <Route path="checklist" element={<Outlet />} />
+            <Route path="log" element={<Outlet />} />
           </Route>
           <Route path="/" element={<AuthPage />} />
         </Routes>

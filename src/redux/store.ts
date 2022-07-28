@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import auth from './auth/slice';
 import users from './users/slice';
+import hospital from './hospital/slice';
 
 export const store = configureStore({
   reducer: {
     auth,
     users,
+    hospital,
   },
 });
 

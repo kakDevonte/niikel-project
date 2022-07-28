@@ -24,10 +24,19 @@ export const Header: React.FC = () => {
             </li>
           </ul>
         )}
-        {(role === 'user' || role === 'user2') && (
+        {(role === 'userHospital' ||
+          role === 'userChecklist' ||
+          role === 'guest') && (
           <ul>
-            <li>Чеклисты</li>
-            <li>Госпитализация</li>
+            <li>
+              <Link to={'checklist'}>Чеклисты</Link>
+            </li>
+            <li>
+              <Link to={'/user'}>Госпитализация</Link>
+            </li>
+            <li>
+              <Link to={'log'}>Журнал</Link>
+            </li>
           </ul>
         )}
       </div>

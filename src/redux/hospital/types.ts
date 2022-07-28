@@ -1,15 +1,30 @@
 export const data: string = 'sad';
 
 export type PatientType = {
+  id: string;
   name: string;
-  contingent: string;
+  content: string;
   department: string;
-  profile: string;
+  direction: string;
   comment: string;
+  declarer: string;
   date: string;
   isPermit: boolean;
+  isDelete: boolean;
+};
+
+export type HospitalDayType = {
+  date: string;
+  department: string;
+  patients: PatientType[];
+};
+
+export type SearchValueType = {
+  firstDate: string;
+  secondDate: string;
+  department: string;
 };
 
 export type HospitalState = {
-  patients: PatientType[];
+  hospitalDays: HospitalDayType[];
 };

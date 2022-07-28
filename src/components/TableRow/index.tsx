@@ -1,31 +1,61 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
+import stylesRow from './TableRow.module.scss';
 import { Input } from '../Input';
 import styles from '../PatientTable/PatientTable.module.scss';
 import { Button } from '../Button';
 import editIcon from '../../assets/img/edit.svg';
 import trashIcon from '../../assets/img/trash.svg';
+import boxIcon from '../../assets/img/box-arrow-up.svg';
+import { PatientType } from '../../redux/hospital/types';
+import { useAppDispatch } from '../../redux/store';
+import {
+  editPatient,
+  handleDeleteStatusPatient,
+} from '../../redux/hospital/asyncActions';
 
-type PatientType = {
-  id: number;
-  name: string;
-  contingent: string;
-  profile: string;
-  declarer: string;
-  isAdmit: string;
-  comment: string;
-};
-
-export const TableRow: React.FC<PatientType> = (props) => {
+export const TableRow: React.FC<
+  PatientType & { index: number; department: string; date: string }
+> = (props) => {
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const [patient, setPatient] = React.useState<PatientType>(props);
+  const dispatch = useAppDispatch();
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPatient({ ...patient, [event.target.name]: event.target.value });
   };
 
+  const handleChangePermit = () => {
+    setPatient({ ...patient, isPermit: !patient.isPermit });
+  };
+
+  const onClickHandleDeleteStatusPatient = () => {
+    console.log(props.date, props.department);
+    dispatch(
+      handleDeleteStatusPatient({
+        date: props.date,
+        department: props.department,
+        id: patient.id,
+        isDelete: !patient.isDelete,
+      })
+    );
+  };
+
+  const onClickEdit = () => {
+    if (isEdit) {
+      dispatch(
+        editPatient({
+          ...patient,
+          date: props.date,
+          department: props.department,
+        })
+      );
+    }
+    setIsEdit(!isEdit);
+  };
+
   return (
-    <tr>
-      <td>{patient.id}</td>
+    <tr className={patient.isDelete ? stylesRow.strikeout : ''}>
+      <td>{props.index + 1}</td>
       <td>
         {isEdit ? (
           <Input value={patient.name} name="name" onChange={changeHandler} />
@@ -36,23 +66,23 @@ export const TableRow: React.FC<PatientType> = (props) => {
       <td>
         {isEdit ? (
           <Input
-            value={patient.contingent}
-            name="contingent"
+            value={patient.content}
+            name="content"
             onChange={changeHandler}
           />
         ) : (
-          patient.contingent
+          patient.content
         )}
       </td>
       <td>
         {isEdit ? (
           <Input
-            value={patient.profile}
-            name="profile"
+            value={patient.direction}
+            name="direction"
             onChange={changeHandler}
           />
         ) : (
-          patient.profile
+          patient.direction
         )}
       </td>
       <td>
@@ -63,15 +93,13 @@ export const TableRow: React.FC<PatientType> = (props) => {
         )}
       </td>
       <td>
-        {isEdit ? (
-          <Input
-            value={patient.isAdmit}
-            name="isAdmit"
-            onChange={changeHandler}
-          />
-        ) : (
-          patient.isAdmit
-        )}
+        <Input
+          type="checkbox"
+          checked={patient.isPermit}
+          name="isPermit"
+          onChange={handleChangePermit}
+          disabled={!isEdit}
+        />
       </td>
       <td>
         {isEdit ? (
@@ -86,10 +114,22 @@ export const TableRow: React.FC<PatientType> = (props) => {
       </td>
       <td>
         <div className={styles.buttons}>
-          <Button variant={'outlinePrimary'} onClick={() => setIsEdit(!isEdit)}>
-            <img src={editIcon} alt="Edit Icon" />
+          <Button
+            variant={'outlinePrimary'}
+            onClick={
+              patient.isDelete ? onClickHandleDeleteStatusPatient : onClickEdit
+            }
+          >
+            {patient.isDelete ? (
+              <img src={boxIcon} alt="Box Icon" />
+            ) : (
+              <img src={editIcon} alt="Edit Icon" />
+            )}
           </Button>
-          <Button variant={'outlineDanger'}>
+          <Button
+            variant={'outlineDanger'}
+            onClick={onClickHandleDeleteStatusPatient}
+          >
             <img src={trashIcon} alt="Trash Icon" />
           </Button>
         </div>

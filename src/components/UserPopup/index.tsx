@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './UserPopup.module.scss';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { logout } from '../../redux/auth/asyncActions';
 import { useNavigate } from 'react-router-dom';
 
 export const UserPopup: React.FC = () => {
+  const { name } = useAppSelector((state) => state.auth.data);
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const popupRef = React.useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ export const UserPopup: React.FC = () => {
   return (
     <div ref={popupRef}>
       <div className={styles.sortLabel} onClick={onClickPopup}>
-        <span>Александр Хатюшин</span>
+        <span>{name}</span>
       </div>
       {isVisible && (
         <div className={styles.sortPopup}>

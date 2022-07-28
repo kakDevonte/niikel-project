@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { UserType } from '../redux/users/types';
+import { PatientType } from '../redux/hospital/types';
 
 const instance = axios.create({
   withCredentials: true,
@@ -38,22 +39,24 @@ export const usersAPI = {
 };
 
 export const hospitalAPI = {
-  search(patient: string) {
-    return instance.post('search/', { patient });
-  },
   getAll(date: string) {
     return instance.post('getall/', { date });
   },
-  get(date: string, department: string) {
-    return instance.post(`get/`, { date, department });
+  get(department: string, firstDate: string, secondDate: string) {
+    return instance.post(`get/`, { firstDate, secondDate, department });
   },
-  create(data: string) {
-    return instance.post(``, { data });
+  create(patient: PatientType) {
+    return instance.post(``, patient);
   },
-  update(data: string) {
-    return instance.put(``, { data });
+  update(patient: PatientType) {
+    return instance.put(``, patient);
   },
-  delete(data: string) {
-    return instance.post(`delete/`, { data });
+  handleDelete(params: {
+    date: string;
+    department: string;
+    id: string;
+    isDelete: boolean;
+  }) {
+    return instance.put(`delete/`, params);
   },
 };

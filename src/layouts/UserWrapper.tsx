@@ -3,8 +3,9 @@ import { Header } from '../components/Header';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../utils/useAuth';
 
-export const AdminWrapper: React.FC = () => {
-  if (!useAuth(['admin'])) return <Navigate to={'/'} />;
+export const UserWrapper: React.FC = () => {
+  if (!useAuth(['userHospital', 'userChecklist', 'guest']))
+    return <Navigate to={'/'} />;
 
   return (
     <>
