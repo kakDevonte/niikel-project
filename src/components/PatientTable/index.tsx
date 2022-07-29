@@ -20,13 +20,13 @@ export const PatientTable: React.FC = () => {
               <thead>
                 <tr>
                   <th style={{ width: 5 + '%' }}>№</th>
-                  <th>ФИО пациента</th>
-                  <th>Контингент</th>
-                  <th>Профиль</th>
-                  <th>Заявитель</th>
-                  <th>Допуск</th>
-                  <th>Комментарии</th>
-                  <th></th>
+                  <th style={{ width: 30 + '%' }}>ФИО пациента</th>
+                  <th style={{ width: 15 + '%' }}>Контингент</th>
+                  <th style={{ width: 30 + '%' }}>Профиль</th>
+                  <th style={{ width: 20 + '%' }}>Заявитель</th>
+                  <th style={{ width: 8 + '%' }}>Допуск</th>
+                  <th style={{ width: 20 + '%' }}>Комментарии</th>
+                  <th style={{ width: 15 + '%' }} className={styles.dNone}></th>
                 </tr>
               </thead>
               <tbody>

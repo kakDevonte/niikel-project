@@ -1,6 +1,6 @@
 import { HospitalState } from './types';
 import { createSlice } from '@reduxjs/toolkit';
-import { getHospitalDays } from './asyncActions';
+import { getAllDepartments, getHospitalDays } from './asyncActions';
 
 const initialState: HospitalState = {
   hospitalDays: [],
@@ -18,6 +18,15 @@ const hospitalSlice = createSlice({
       state.hospitalDays = [];
     });
     builder.addCase(getHospitalDays.rejected, (state) => {
+      state.hospitalDays = [];
+    });
+    builder.addCase(getAllDepartments.fulfilled, (state, action) => {
+      state.hospitalDays = action.payload;
+    });
+    builder.addCase(getAllDepartments.pending, (state) => {
+      state.hospitalDays = [];
+    });
+    builder.addCase(getAllDepartments.rejected, (state) => {
       state.hospitalDays = [];
     });
   },

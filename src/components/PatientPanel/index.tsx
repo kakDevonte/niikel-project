@@ -4,14 +4,17 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import styles from './PatientPanel.module.scss';
-import { Button } from '../Button';
+import { Button, Input, Select } from '../index';
 import arrowLeft from '../../assets/img/arrow-bar-left.svg';
 import arrowRight from '../../assets/img/arrow-bar-right.svg';
-import { Input } from '../Input';
-import { Select } from '../Select';
 import { PatientType, SearchValueType } from '../../redux/hospital/types';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { addPatient, getHospitalDays } from '../../redux/hospital/asyncActions';
+import {
+  addPatient,
+  getAllDepartments,
+  getHospitalDays,
+} from '../../redux/hospital/asyncActions';
+import { DECLARANT } from '../../utils/declarant';
 
 const schema = yup.object().shape({
   name: yup.string().required('Требуется ввести ФИО пациента'),
@@ -23,12 +26,12 @@ const schema = yup.object().shape({
 
 export const PatientPanel: React.FC = () => {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
-  const { name } = useAppSelector((state) => state.auth.data);
+  const { name, role } = useAppSelector((state) => state.auth.data);
   const dispatch = useAppDispatch();
   const [searchValue, setSearchValue] = React.useState<SearchValueType>({
     firstDate: new Date().toLocaleDateString('en-CA'),
     secondDate: '',
-    department: '',
+    department: 'Гинекологическое отделение',
   });
 
   const {
@@ -53,6 +56,13 @@ export const PatientPanel: React.FC = () => {
       ...searchValue,
       firstDate: result.toLocaleDateString('en-CA'),
     });
+    dispatch(
+      getHospitalDays({
+        firstDate: result.toLocaleDateString('en-CA'),
+        secondDate: searchValue.secondDate,
+        department: searchValue.department,
+      })
+    );
   };
 
   const handleVisible = () => {
@@ -60,7 +70,13 @@ export const PatientPanel: React.FC = () => {
   };
 
   const onClickSearch = () => {
-    dispatch(getHospitalDays(searchValue));
+    if (searchValue.department === 'all')
+      dispatch(getAllDepartments(searchValue));
+    else dispatch(getHospitalDays(searchValue));
+  };
+
+  const onClickPrint = () => {
+    window.print();
   };
 
   const randomId = () => Math.random().toString(16).slice(2);
@@ -72,9 +88,10 @@ export const PatientPanel: React.FC = () => {
     data.isPermit = false;
 
     dispatch(addPatient(data));
+    setIsVisible(false);
   };
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} d-none`}>
       <div className={styles.panel}>
         <div className={styles.panelDate}>
           <label>Дата:</label>
@@ -130,10 +147,16 @@ export const PatientPanel: React.FC = () => {
         </div>
       </div>
       <div>
-        <Button variant={'primary'} onClick={handleVisible}>
+        <Button
+          variant={'primary'}
+          onClick={handleVisible}
+          disabled={role === 'guest'}
+        >
           Добавление пациента
         </Button>
-        <Button variant={'primary'}>Распечатать</Button>
+        <Button variant={'primary'} onClick={onClickPrint}>
+          Распечатать
+        </Button>
       </div>
       {isVisible && (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -152,10 +175,12 @@ export const PatientPanel: React.FC = () => {
               error={!!errors.content}
               text={errors?.content?.message}
             >
-              <option defaultValue=""></option>
-              <option value="Гинекологическое отделение">
-                Гинекологическое отделение
-              </option>
+              <option disabled value="" />
+              {Object.entries(DECLARANT).map(([key, val]) => (
+                <option key={key} value={val}>
+                  {val}
+                </option>
+              ))}
             </Select>
           </div>
           <div className={styles.gridItem}>
@@ -177,9 +202,18 @@ export const PatientPanel: React.FC = () => {
               error={!!errors.department}
               text={errors?.department?.message}
             >
-              <option defaultValue=""></option>
+              <option disabled value="" />
               <option value="Гинекологическое отделение">
                 Гинекологическое отделение
+              </option>
+              <option value="Хирургическое отделение">
+                Хирургическое отделение
+              </option>
+              <option value="Ревматологическое отделение">
+                Ревматологическое отделение
+              </option>
+              <option value="Эндокринологическое отделение">
+                Эндокринологическое отделение
               </option>
             </Select>
           </div>

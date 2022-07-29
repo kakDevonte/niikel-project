@@ -4,6 +4,10 @@
   grid-template-areas: "icon list btn";
   border-bottom: 1px solid rgba(26, 26, 26, 0.1);
 
+  @media print {
+    display: none;
+  }
+
   @media (max-width: 550px) {
     grid-template-columns: 20% 80%;
     grid-template-rows: 50% 50%;

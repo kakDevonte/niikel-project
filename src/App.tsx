@@ -10,6 +10,7 @@ import { LoadingSpinner } from './components/LoadingSpinner';
 import { useAppDispatch, useAppSelector } from './redux/store';
 import { getUserData } from './redux/auth/asyncActions';
 import { UserWrapper } from './layouts/UserWrapper';
+import { LogPage } from './pages/LogPage';
 
 function App() {
   const { status } = useAppSelector((state) => state.auth);
@@ -33,7 +34,7 @@ function App() {
           <Route path="/user" element={<UserWrapper />}>
             <Route index element={<HospitalPlan />} />
             <Route path="checklist" element={<Outlet />} />
-            <Route path="log" element={<Outlet />} />
+            <Route path="log" element={<LogPage />} />
           </Route>
           <Route path="/" element={<AuthPage />} />
         </Routes>

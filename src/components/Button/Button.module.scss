@@ -19,13 +19,19 @@ $duration: 0.15s;
     color: #fff;
   }
 
-  &:hover {
+  &:hover:enabled {
     background-color: darken(#f8b002, 8%);
   }
 
-  &:active {
+  &:active:enabled {
     background-color: darken(#f8b002, 12%);
     transform: translateY(1px);
+  }
+
+  &:disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
   }
 
   &Danger {
@@ -54,14 +60,20 @@ $duration: 0.15s;
   cursor: pointer;
   background-color: transparent;
 
+  &:disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+  }
+
   &Edit {
     border: 2px solid #f8b002;
 
-    &:hover {
+    &:hover:enabled {
       background-color: #f8b002;
     }
 
-    &:active {
+    &:active:enabled {
       background-color: darken(#f8b002, 20%);
       border: 2px solid darken(#f8b002, 20%);
       transform: translateY(1px);
@@ -71,11 +83,11 @@ $duration: 0.15s;
   &Delete {
     border: 2px solid red;
 
-    &:hover {
+    &:hover:enabled {
       background-color: red;
     }
 
-    &:active {
+    &:active:enabled {
       background-color: darken(red, 20%);
       border: 2px solid darken(red, 20%);
       transform: translateY(1px);

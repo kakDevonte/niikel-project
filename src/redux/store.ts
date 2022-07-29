@@ -3,12 +3,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import auth from './auth/slice';
 import users from './users/slice';
 import hospital from './hospital/slice';
+import logs from './log/slice';
 
 export const store = configureStore({
   reducer: {
     auth,
     users,
     hospital,
+    logs,
   },
 });
 

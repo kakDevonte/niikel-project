@@ -7,20 +7,29 @@ import editIcon from '../../assets/img/edit.svg';
 import trashIcon from '../../assets/img/trash.svg';
 import boxIcon from '../../assets/img/box-arrow-up.svg';
 import { PatientType } from '../../redux/hospital/types';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import {
+  deletePatient,
   editPatient,
   handleDeleteStatusPatient,
 } from '../../redux/hospital/asyncActions';
+import { Select } from '../Select';
+import { DECLARANT } from '../../utils/declarant';
+import { addLogMessage } from '../../redux/log/asyncActions';
 
 export const TableRow: React.FC<
   PatientType & { index: number; department: string; date: string }
 > = (props) => {
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const [patient, setPatient] = React.useState<PatientType>(props);
+  const { role, name } = useAppSelector((state) => state.auth.data);
   const dispatch = useAppDispatch();
 
-  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeHandler = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setPatient({ ...patient, [event.target.name]: event.target.value });
   };
 
@@ -28,8 +37,39 @@ export const TableRow: React.FC<
     setPatient({ ...patient, isPermit: !patient.isPermit });
   };
 
+  const onClickDelete = () => {
+    dispatch(
+      deletePatient({
+        date: props.date,
+        department: props.department,
+        id: patient.id,
+      })
+    );
+    dispatch(
+      addLogMessage({
+        date: new Date().toLocaleDateString('ru-RU'),
+        message: `${name} удалил пациента ${
+          patient.name
+        }, дата госпитализации ${new Date(props.date).toLocaleDateString(
+          'ru-RU'
+        )}, отделение: ${props.department}`,
+      })
+    );
+  };
   const onClickHandleDeleteStatusPatient = () => {
-    console.log(props.date, props.department);
+    if (!patient.isDelete) {
+      dispatch(
+        addLogMessage({
+          date: new Date().toLocaleDateString('ru-RU'),
+          message: `${name} добавил в архив пациента ${
+            patient.name
+          }, дата госпитализации ${new Date(props.date).toLocaleDateString(
+            'ru-RU'
+          )}, отделение: ${props.department}`,
+        })
+      );
+    }
+
     dispatch(
       handleDeleteStatusPatient({
         date: props.date,
@@ -65,11 +105,18 @@ export const TableRow: React.FC<
       </td>
       <td>
         {isEdit ? (
-          <Input
+          <Select
             value={patient.content}
             name="content"
             onChange={changeHandler}
-          />
+          >
+            <option disabled value="" />
+            {Object.entries(DECLARANT).map(([key, val]) => (
+              <option key={key} value={val}>
+                {val}
+              </option>
+            ))}
+          </Select>
         ) : (
           patient.content
         )}
@@ -112,9 +159,10 @@ export const TableRow: React.FC<
           patient.comment
         )}
       </td>
-      <td>
+      <td className={stylesRow.dNone}>
         <div className={styles.buttons}>
           <Button
+            disabled={role === 'guest'}
             variant={'outlinePrimary'}
             onClick={
               patient.isDelete ? onClickHandleDeleteStatusPatient : onClickEdit
@@ -127,8 +175,13 @@ export const TableRow: React.FC<
             )}
           </Button>
           <Button
+            disabled={role === 'guest'}
             variant={'outlineDanger'}
-            onClick={onClickHandleDeleteStatusPatient}
+            onClick={
+              patient.isDelete
+                ? onClickDelete
+                : onClickHandleDeleteStatusPatient
+            }
           >
             <img src={trashIcon} alt="Trash Icon" />
           </Button>

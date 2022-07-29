@@ -1,3 +1,9 @@
 .strikeout {
   text-decoration: line-through;
 }
+
+.dNone {
+  @media print {
+    display: none;
+  }
+}

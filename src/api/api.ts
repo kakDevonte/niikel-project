@@ -39,8 +39,8 @@ export const usersAPI = {
 };
 
 export const hospitalAPI = {
-  getAll(date: string) {
-    return instance.post('getall/', { date });
+  getAll(firstDate: string, secondDate: string) {
+    return instance.post('getall/', { firstDate, secondDate });
   },
   get(department: string, firstDate: string, secondDate: string) {
     return instance.post(`get/`, { firstDate, secondDate, department });
@@ -50,6 +50,15 @@ export const hospitalAPI = {
   },
   update(patient: PatientType) {
     return instance.put(``, patient);
+  },
+  log(date: string, message: string) {
+    return instance.post(`log`, { date, message });
+  },
+  getLogs() {
+    return instance.get(`getlogs`);
+  },
+  delete(date: string, department: string, id: string) {
+    return instance.post(`delete`, { date, department, id });
   },
   handleDelete(params: {
     date: string;
