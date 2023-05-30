@@ -20,6 +20,7 @@ const schema = yup.object().shape({
   name: yup.string().required('Требуется ввести ФИО пациента'),
   content: yup.string().required('Требуется выбрать контингент'),
   direction: yup.string().required('Требуется ввести профиль'),
+  mkb: yup.string().required('Требуется ввести МКБ'),
   department: yup.string().required('Требуется выбрать отделение'),
   date: yup.string().required('Требуется выбрать дату'),
 });
@@ -29,7 +30,9 @@ export const PatientPanel: React.FC = () => {
   const { name, role } = useAppSelector((state) => state.auth.data);
   const dispatch = useAppDispatch();
   const [searchValue, setSearchValue] = React.useState<SearchValueType>({
-    firstDate: new Date().toLocaleDateString('en-CA'),
+    firstDate: `${new Date().getFullYear()}-${
+      new Date().getMonth() + 1 > 9 ? '' : '0'
+    }${new Date().getMonth() + 1}-${new Date().getDate()}`,
     secondDate: '',
     department: 'Гинекологическое отделение',
   });
@@ -52,13 +55,15 @@ export const PatientPanel: React.FC = () => {
   const onClickArrowBtn = (side: number) => {
     let result = new Date(searchValue.firstDate);
     result.setDate(result.getDate() + side);
+    // console.log(result.toLocaleDateString('en-CA'));
+    // console.log(result.toLocaleDateString('en-CA').replaceAll('/', '-'));
     setSearchValue({
       ...searchValue,
-      firstDate: result.toLocaleDateString('en-CA'),
+      firstDate: result.toLocaleDateString('en-CA').replaceAll('/', '-'),
     });
     dispatch(
       getHospitalDays({
-        firstDate: result.toLocaleDateString('en-CA'),
+        firstDate: result.toLocaleDateString('en-CA').replaceAll('/', '-'),
         secondDate: searchValue.secondDate,
         department: searchValue.department,
       })
@@ -90,6 +95,7 @@ export const PatientPanel: React.FC = () => {
     dispatch(addPatient(data));
     setIsVisible(false);
   };
+  console.log(searchValue.firstDate);
   return (
     <div className={`${styles.root} d-none`}>
       <div className={styles.panel}>
@@ -136,6 +142,9 @@ export const PatientPanel: React.FC = () => {
             </option>
             <option value="Эндокринологическое отделение">
               Эндокринологическое отделение
+            </option>
+            <option value="Консультативное отделение">
+              Консультативное отделение
             </option>
             <option value="all">Все отделения</option>
           </Select>
@@ -192,6 +201,14 @@ export const PatientPanel: React.FC = () => {
             />
           </div>
           <div className={styles.gridItem}>
+            <label>МКБ</label>
+            <Input
+              {...register('mkb')}
+              error={!!errors.mkb}
+              text={errors?.mkb?.message}
+            />
+          </div>
+          <div className={styles.gridItem}>
             <label className={styles.textFieldLabel}>Комментарий</label>
             <Input {...register('comment')} />
           </div>
@@ -215,6 +232,9 @@ export const PatientPanel: React.FC = () => {
               <option value="Эндокринологическое отделение">
                 Эндокринологическое отделение
               </option>
+              <option value="Консультативное отделение">
+                Консультативное отделение
+              </option>
             </Select>
           </div>
           <div className={styles.gridItem}>
@@ -226,7 +246,7 @@ export const PatientPanel: React.FC = () => {
               text={errors?.date?.message}
             />
           </div>
-          <div className={styles.gridItem}>
+          <div className={` ${styles.btnItem} ${styles.gridItem}`}>
             <Button variant={'primary'}>Добавить</Button>
           </div>
         </form>

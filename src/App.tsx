@@ -37,6 +37,7 @@ function App() {
             <Route path="log" element={<LogPage />} />
           </Route>
           <Route path="/" element={<AuthPage />} />
+          <Route path="/login" element={<AuthPage />} />
         </Routes>
       ) : (
         <LoadingSpinner />

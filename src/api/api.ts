@@ -4,8 +4,8 @@ import { PatientType } from '../redux/hospital/types';
 
 const instance = axios.create({
   withCredentials: true,
-  baseURL: 'http://localhost:5000/api/',
-  //baseURL: 'http://192.168.1.238:5000/api/',
+  //baseURL: 'http://localhost:5000/api/',
+  baseURL: 'http://192.168.1.238:5000/api/',
 });
 
 export const authAPI = {

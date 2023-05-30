@@ -8,6 +8,8 @@ export type PatientType = {
   direction: string;
   comment: string;
   declarer: string;
+  mkb: string;
+  declarant?: string;
   date: string;
   isPermit: boolean;
   isDelete: boolean;

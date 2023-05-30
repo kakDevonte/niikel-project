@@ -3,13 +3,11 @@ import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import * as yup from 'yup';
 
 import styles from './AuthPage.module.scss';
-import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
+import { Input, Button } from '../../components';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { login } from '../../redux/auth/asyncActions';
 import { useNavigate } from 'react-router-dom';
-import { Status } from '../../redux/auth/types';
 
 type AuthType = {
   email: string;
@@ -43,7 +41,7 @@ export const AuthPage: React.FC = () => {
           navigate('/admin');
           break;
         case 'head':
-          navigate('/admin');
+          navigate('/head');
           break;
         case 'userHospital':
           navigate('/user');
@@ -78,14 +76,15 @@ export const AuthPage: React.FC = () => {
         <div className={styles.item}>
           <label>Пароль</label>
           <Input
-            type="password"
             {...register('password')}
             error={!!errors.password}
             text={errors?.password?.message}
           />
         </div>
         <div className={styles.item}>
-          <Button variant={'primary'}>Вход</Button>
+          <Button variant={'primary'} type="submit">
+            Вход
+          </Button>
         </div>
       </form>
     </div>

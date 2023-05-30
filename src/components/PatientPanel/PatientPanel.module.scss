@@ -93,7 +93,7 @@
 .form {
   border-top: 1px solid rgba(26, 26, 26, 0.1);
   display: grid;
-  grid-template-columns: repeat(3, 2fr);
+  grid-template-columns: repeat(4, 2fr);
 
   @media (max-width: 600px) {
     grid-template-columns: repeat(2, 2fr);
@@ -102,6 +102,12 @@
   button {
     width: 30%;
   }
+}
+
+.btnItem {
+  align-self: center;
+  justify-self: center;
+  height: 1px;
 }
 
 .gridItem {

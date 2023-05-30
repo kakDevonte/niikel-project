@@ -134,9 +134,21 @@ export const TableRow: React.FC<
       </td>
       <td>
         {isEdit ? (
-          <Input value={patient.declarer} disabled />
+          <Input value={patient.mkb} name="mkb" onChange={changeHandler} />
         ) : (
+          patient.mkb
+        )}
+      </td>
+      <td>
+        {isEdit ? (
+          <Input
+            value={patient.declarer ? patient.declarer : patient.declarant}
+            disabled
+          />
+        ) : patient.declarer ? (
           patient.declarer
+        ) : (
+          patient.declarant
         )}
       </td>
       <td>
